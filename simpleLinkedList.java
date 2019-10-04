@@ -1,4 +1,4 @@
- class Node{
+class Node{
    public int data;
    public Node next;
   
@@ -86,9 +86,34 @@
        }
        temp = temp.next;
      }
+     System.out.println();
    }
+
+   public void reverse() {
+
+     if(head == null)
+      return;
+
+      Node current = head, prev =null, next = null;
+      while(current.next != null){
+        next = current.next;
+        current.next = prev;
+        prev = current;
+        current = next;
+      }  
+      current.next = prev;
+      prev = current;
+      head = prev;
+   }
+  
+  public Node recursiveReverse(Node node){
+    if(node == null){
+      return;
+    }
+  }
+
  }
- 
+
  class Main {
   public static void main(String[] args) {
     LinkedList list = new LinkedList();
@@ -96,6 +121,10 @@
     list.addNode(4);
     list.addNode(8);
     list.addNode(4);
+
+    list.print();
+    list.reverse();
+    list.print();
 
     list.remove(8);
     list.print();
