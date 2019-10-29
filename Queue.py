@@ -8,7 +8,7 @@ class Queue:
             self.head = Node(data)
             return
         temp = self.head
-        while(temp.next != None):
+        while temp.next != None:
             temp = temp.next
         temp.next = Node(data)
         return temp
