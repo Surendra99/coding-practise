@@ -1,0 +1,9 @@
+#ignore bin folder
+bin/
+.vscode/
+
+#igonre all class files
+*.class
+
+__pycache__/
+*.pydevproject
