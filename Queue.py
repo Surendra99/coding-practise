@@ -1,8 +1,8 @@
 from Node import Node
 class Queue:
-    head=None
+    def __init__(self):
+        self.head=None
 
-    @classmethod
     def enqueue(self,data):
         if(self.head==None):
             self.head = Node(data)
@@ -13,8 +13,20 @@ class Queue:
         temp.next = Node(data)
         return temp
 
-    @classmethod
     def dequeue(self):
         temp = self.head
         self.head = self.head.next
         return temp
+
+    def length(self):
+        temp = self.head
+        count=0
+        while temp !=None:
+            temp = temp.next
+            count+=1
+        return count
+    def print(self):
+        temp = self.head;        
+        while temp !=None:
+            print(temp.data.data,end=",")
+            temp = temp.next
