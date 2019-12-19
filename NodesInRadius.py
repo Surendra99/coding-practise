@@ -9,36 +9,34 @@ def findNode(node,level,value,helperMap):
         return True
     result = findNode(node.left,level+1,value,helperMap)
     if result == True:
-        node.data = {'data':node.data,'side':'left'}
-        # print(node.data)        
+        helperMap[node.data] = 'left'
         return True
     result = findNode(node.right,level+1,value,helperMap)
     if result == True:
-        node.data = {'data':node.data,'side':'right'}
-        # print(node.data)        
+        helperMap[node.data] = 'right'
         return True
     
 
-def printElementsWithInRadius(node,distance,radius,givenValue):
+def printElementsWithInRadius(node,distance,radius,givenValue,helperMap):
     if node == None:
         return
-    if distance > radius and isinstance(node.data,(int)):
+    if distance > radius and node.data not in helperMap:
         return 
     if distance == radius:
         print(node.data)
-    if isinstance(node.data,(int)):  
+    if node.data not in helperMap:  
         leftDistance, rightDistance = (1,1) if node.data == givenValue else (distance+1,distance+1)
     else:
-        leftDistance, rightDistance = (distance-1,distance+1) if node.data['side'] == 'left' else (distance+1,distance-1)
-    printElementsWithInRadius(node.left,leftDistance,radius,givenValue)
-    printElementsWithInRadius(node.right,rightDistance,radius,givenValue)
+        leftDistance, rightDistance = (distance-1,distance+1) if helperMap[node.data] == 'left' else (distance+1,distance-1)
+    printElementsWithInRadius(node.left,leftDistance,radius,givenValue,helperMap)
+    printElementsWithInRadius(node.right,rightDistance,radius,givenValue,helperMap)
 
 def printRadius(root,value,radius): 
     helperMap = {'height':-1}
     findNode(root,0,value,helperMap)
     if helperMap['height'] == -1:
         print('Given Element not Found')
-    printElementsWithInRadius(root,helperMap['height'],radius,value)  
+    printElementsWithInRadius(root,helperMap['height'],radius,value,helperMap)  
 
 def set1():
     root = BinaryTreeNode(1)
@@ -55,5 +53,5 @@ def set1():
     root.left.left.left.left = BinaryTreeNode(15)
     root.left.left.left.right = BinaryTreeNode(18)
 
-    printRadius(root,7,3)
+    printRadius(root,4,2)
 set1()    
